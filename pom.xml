@@ -9,11 +9,18 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>27</maven.compiler.release>
+        <!-- release=21: AspectJ LTW (обработка аннотаций @Step/@Attachment) не поддерживает
+             класс-файлы новейших версий Java, поэтому байткод собирается под 21 -->
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <selenium.version>4.49.0</selenium.version>
         <testng.version>7.12.0</testng.version>
         <webdrivermanager.version>6.3.4</webdrivermanager.version>
+        <allure.version>2.29.1</allure.version>
+        <allure.maven.plugin.version>2.15.2</allure.maven.plugin.version>
+        <aspectj.version>1.9.22.1</aspectj.version>
+        <!-- Java-агент AspectJ: без него аннотации @Step/@Attachment в отчёте не отображаются -->
+        <allure.javaagent.argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</allure.javaagent.argLine>
     </properties>
 
     <dependencies>
@@ -35,6 +42,20 @@
             <version>${webdrivermanager.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!-- Allure: адаптер TestNG, формирует target/allure-results -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- AspectJ: load-time weaving для аннотаций @Step/@Attachment -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -49,11 +70,40 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.2</version>
                 <configuration>
+                    <argLine>${allure.javaagent.argLine}</argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
+            <!-- Allure: mvn allure:report (HTML в target/site/allure-maven-plugin) и mvn allure:serve -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure.maven.plugin.version}</version>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Кроссбраузерный параллельный прогон: mvn clean test -Pcrossbrowser -->
+        <profile>
+            <id>crossbrowser</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.5.2</version>
+                        <configuration>
+                            <argLine>${allure.javaagent.argLine}</argLine>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/testng-crossbrowser.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

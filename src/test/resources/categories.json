@@ -1,0 +1,26 @@
+{
+  "categories": [
+    {
+      "name": "Ошибка проверки (Assertion)",
+      "matchedStatuses": ["failed"],
+      "messageRegex": ".*AssertionError.*|.*expected.*but found.*",
+      "traceRegex": ".*"
+    },
+    {
+      "name": "Элемент не найден",
+      "matchedStatuses": ["broken", "failed"],
+      "messageRegex": ".*NoSuchElementException.*"
+    },
+    {
+      "name": "Превышено время ожидания",
+      "matchedStatuses": ["broken", "failed"],
+      "messageRegex": ".*TimeoutException.*"
+    },
+    {
+      "name": "Инфраструктурная ошибка (браузер/сеть)",
+      "matchedStatuses": ["broken"],
+      "messageRegex": ".*",
+      "traceRegex": ".*"
+    }
+  ]
+}
