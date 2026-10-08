@@ -1,5 +1,11 @@
 package tests.saucedemo;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.saucedemo.CheckoutCompletePage;
@@ -10,6 +16,10 @@ import pages.saucedemo.InventoryPage;
 import java.util.List;
 
 /** Сценарии оформления заказа Swag Labs: полный цикл и валидация обязательных полей. */
+@Epic("Swag Labs")
+@Feature("Оформление заказа")
+@Story("Полный цикл оформления заказа")
+@Owner("Ниязов")
 public class CheckoutTests extends SauceDemoBaseTest {
 
     private static final String FIRST_NAME = "Ivan";
@@ -20,6 +30,7 @@ public class CheckoutTests extends SauceDemoBaseTest {
     private static final double BACKPACK_PRICE = 29.99;
 
     @Test(description = "Полный цикл оформления заказа: данные покупателя, сверка суммы, подтверждение")
+    @Severity(SeverityLevel.BLOCKER)
     public void testCompleteCheckoutFlow() {
         InventoryPage inventoryPage = loginAsStandardUser();
         inventoryPage.addItemToCart(InventoryPage.ITEM_BACKPACK);
@@ -39,6 +50,7 @@ public class CheckoutTests extends SauceDemoBaseTest {
     }
 
     @Test(description = "Валидация: пустое обязательное поле First Name не позволяет продолжить")
+    @Severity(SeverityLevel.NORMAL)
     public void testCheckoutValidationEmptyFirstName() {
         InventoryPage inventoryPage = loginAsStandardUser();
         inventoryPage.addItemToCart(InventoryPage.ITEM_BACKPACK);

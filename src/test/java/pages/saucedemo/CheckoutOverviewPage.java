@@ -1,5 +1,6 @@
 package pages.saucedemo;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.BasePage;
@@ -20,20 +21,24 @@ public class CheckoutOverviewPage extends BasePage {
         waitForVisibility(SUBTOTAL_LABEL);
     }
 
+    @Step("Получить состав заказа на шаге Overview")
     public List<String> getItemNames() {
         return getAllTexts(INVENTORY_ITEM_NAME);
     }
 
     /** Сумма товаров из подписи вида «Item total: $29.99». */
+    @Step("Прочитать сумму товаров (Item total)")
     public double getSubtotalAmount() {
         return parseAmount(getText(SUBTOTAL_LABEL));
     }
 
     /** Итоговая сумма с налогом из подписи вида «Total: $32.39». */
+    @Step("Прочитать итоговую сумму с налогом (Total)")
     public double getTotalAmount() {
         return parseAmount(getText(TOTAL_LABEL));
     }
 
+    @Step("Завершить оформление заказа (Finish)")
     public CheckoutCompletePage finishOrder() {
         clickUntilEffect(FINISH_BUTTON, d -> d.getCurrentUrl().contains("checkout-complete.html"));
         return new CheckoutCompletePage(driver);

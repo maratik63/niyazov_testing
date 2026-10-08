@@ -1,5 +1,11 @@
 package tests.saucedemo;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.saucedemo.CartPage;
@@ -8,12 +14,17 @@ import pages.saucedemo.InventoryPage;
 import java.util.List;
 
 /** Сценарии работы с корзиной Swag Labs: добавление, удаление, состав корзины. */
+@Epic("Swag Labs")
+@Feature("Корзина")
+@Story("Добавление и удаление товаров")
+@Owner("Ниязов")
 public class CartTests extends SauceDemoBaseTest {
 
     private static final String BACKPACK_NAME = "Sauce Labs Backpack";
     private static final double BACKPACK_PRICE = 29.99;
 
     @Test(description = "Добавление товара в корзину: счётчик корзины, наименование и цена в корзине")
+    @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToCart() {
         InventoryPage inventoryPage = loginAsStandardUser();
 
@@ -29,6 +40,7 @@ public class CartTests extends SauceDemoBaseTest {
     }
 
     @Test(description = "Добавление нескольких товаров и удаление одного из корзины")
+    @Severity(SeverityLevel.NORMAL)
     public void testAddMultipleItemsAndRemoveOne() {
         InventoryPage inventoryPage = loginAsStandardUser();
 

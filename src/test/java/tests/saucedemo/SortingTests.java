@@ -1,5 +1,11 @@
 package tests.saucedemo;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.saucedemo.InventoryPage;
@@ -10,9 +16,14 @@ import java.util.Comparator;
 import java.util.List;
 
 /** Сценарии сортировки каталога Swag Labs: по названию и по цене. */
+@Epic("Swag Labs")
+@Feature("Каталог товаров")
+@Story("Сортировка каталога")
+@Owner("Ниязов")
 public class SortingTests extends SauceDemoBaseTest {
 
     @Test(description = "Сортировка по названию A→Z")
+    @Severity(SeverityLevel.NORMAL)
     public void testSortByNameAscending() {
         InventoryPage inventoryPage = loginAsStandardUser();
 
@@ -26,6 +37,7 @@ public class SortingTests extends SauceDemoBaseTest {
     }
 
     @Test(description = "Сортировка по названию Z→A")
+    @Severity(SeverityLevel.MINOR)
     public void testSortByNameDescending() {
         InventoryPage inventoryPage = loginAsStandardUser();
 
@@ -39,6 +51,7 @@ public class SortingTests extends SauceDemoBaseTest {
     }
 
     @Test(description = "Сортировка по цене Low→High")
+    @Severity(SeverityLevel.NORMAL)
     public void testSortByPriceLowToHigh() {
         InventoryPage inventoryPage = loginAsStandardUser();
 
@@ -52,6 +65,7 @@ public class SortingTests extends SauceDemoBaseTest {
     }
 
     @Test(description = "Сортировка по цене High→Low")
+    @Severity(SeverityLevel.MINOR)
     public void testSortByPriceHighToLow() {
         InventoryPage inventoryPage = loginAsStandardUser();
 

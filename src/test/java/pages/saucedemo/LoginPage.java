@@ -1,5 +1,6 @@
 package pages.saucedemo;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.BasePage;
@@ -27,6 +28,7 @@ public class LoginPage extends BasePage {
      * Вход с переданными учётными данными. При успехе тест дальше создаёт InventoryPage —
      * его конструктор дожидается загрузки каталога.
      */
+    @Step("Войти под пользователем {username}")
     public LoginPage login(String username, String password) {
         type(USERNAME_FIELD, username);
         type(PASSWORD_FIELD, password);
@@ -35,6 +37,7 @@ public class LoginPage extends BasePage {
     }
 
     /** Текст сообщения об ошибке входа («Epic sadface: …»). */
+    @Step("Прочитать сообщение об ошибке входа")
     public String getErrorMessage() {
         return getText(ERROR_MESSAGE);
     }

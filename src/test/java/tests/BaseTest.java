@@ -17,6 +17,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import utils.AllureAttachments;
+import utils.AllureEnvironmentWriter;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,6 +42,9 @@ import java.util.Map;
  * Соединение: по умолчанию браузер идёт в сеть напрямую (локальный прокси разработчика может быть
  * выключен и тогда тесты падают с proxyConnectFailure). Если прокси нужен, запускайте с
  * {@code -Dproxy=system} — браузер возьмёт настройки прокси из системы.
+ * <p>
+ * Allure: при падении теста к отчёту прикладываются скриншот и DOM-дамп страницы,
+ * а использованный браузер попадает в блок Environment ({@link AllureEnvironmentWriter}).
  */
 public abstract class BaseTest {
 
@@ -57,12 +62,16 @@ public abstract class BaseTest {
 
         driver = createDriver(browser, headless);
         driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT);
+        AllureEnvironmentWriter.registerBrowser(browser);
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) {
         if (driver != null && !result.isSuccess()) {
             saveScreenshot(result);
+            // Диагностика для Allure: состояние страницы в момент падения
+            AllureAttachments.screenshot(driver, "Скриншот падения");
+            AllureAttachments.pageSource(driver, "DOM-дамп на момент падения");
         }
         if (driver != null) {
             driver.quit();

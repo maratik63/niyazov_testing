@@ -1,5 +1,6 @@
 package pages.saucedemo;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.BasePage;
@@ -17,10 +18,12 @@ public class CheckoutCompletePage extends BasePage {
     }
 
     /** Заголовок подтверждения — «Thank you for your order!». */
+    @Step("Прочитать заголовок подтверждения заказа")
     public String getCompleteHeaderText() {
         return getText(COMPLETE_HEADER);
     }
 
+    @Step("Прочитать текст подтверждения заказа")
     public String getCompleteText() {
         return getText(COMPLETE_TEXT);
     }

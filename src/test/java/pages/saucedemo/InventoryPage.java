@@ -1,5 +1,6 @@
 package pages.saucedemo;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,6 +37,7 @@ public class InventoryPage extends BasePage {
         waitForVisibility(INVENTORY_LIST);
     }
 
+    @Step("Прочитать заголовок каталога")
     public String getPageTitle() {
         return getText(PAGE_TITLE);
     }
@@ -44,6 +46,7 @@ public class InventoryPage extends BasePage {
      * Добавляет товар в корзину и дожидается увеличения счётчика:
      * React обновляет бейдж асинхронно после клика.
      */
+    @Step("Добавить товар «{itemId}» в корзину")
     public InventoryPage addItemToCart(String itemId) {
         int countBefore = readCartBadgeCount();
         clickUntilEffect(By.id("add-to-cart-" + itemId), d -> readCartBadgeCount() == countBefore + 1);
@@ -51,6 +54,7 @@ public class InventoryPage extends BasePage {
     }
 
     /** Удаляет товар из корзины и дожидается уменьшения счётчика. */
+    @Step("Удалить товар «{itemId}» из корзины")
     public InventoryPage removeItemFromCart(String itemId) {
         int countBefore = readCartBadgeCount();
         clickUntilEffect(By.id("remove-" + itemId), d -> readCartBadgeCount() == countBefore - 1);
@@ -58,26 +62,31 @@ public class InventoryPage extends BasePage {
     }
 
     /** Количество товаров в корзине; при пустой корзине счётчика нет — 0. */
+    @Step("Прочитать счётчик корзины")
     public int getCartBadgeCount() {
         return readCartBadgeCount();
     }
 
+    @Step("Получить названия товаров каталога")
     public List<String> getItemNames() {
         return getAllTexts(INVENTORY_ITEM_NAME);
     }
 
+    @Step("Получить цены товаров каталога")
     public List<Double> getItemPrices() {
         return getAllTexts(INVENTORY_ITEM_PRICE).stream()
                 .map(price -> Double.parseDouble(price.replace("$", "")))
                 .collect(Collectors.toList());
     }
 
+    @Step("Отсортировать каталог: {option}")
     public InventoryPage sortBy(SortOption option) {
         waitForVisibility(SORT_CONTAINER);
         new Select(driver.findElement(SORT_CONTAINER)).selectByValue(option.getValue());
         return this;
     }
 
+    @Step("Перейти в корзину")
     public CartPage openCart() {
         clickUntilEffect(CART_LINK, d -> d.getCurrentUrl().contains("cart.html"));
         return new CartPage(driver);
