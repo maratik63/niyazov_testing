@@ -1,7 +1,5 @@
 package utils;
 
-import java.time.Duration;
-
 /**
  * Адреса страниц и тестовые данные сайта ShareLane (все CGI-скрипты лежат в /cgi-bin/).
  */
@@ -21,8 +19,8 @@ public final class ShareLaneConfig {
     public static final String BOOK_PRICE = "10.00";
 
     /**
-     * Сумма в корзине за одну книгу. Сайт не вычитает скидку, а прибавляет её к стоимости
-     * (10.00 + 7 %), поэтому в проверке зафиксировано фактическое значение — см. TEST_REPORT.md.
+     * Сумма в корзине за одну книгу. Дефект сайта: скидка не вычитается, а прибавляется
+     * к стоимости (10.00 + 7 %), поэтому в проверке зафиксировано фактическое значение.
      */
     public static final String BOOK_TOTAL = "10.70";
 
@@ -31,14 +29,6 @@ public final class ShareLaneConfig {
 
     /** Пароль, который вводится в форме регистрации (в БД он не сохраняется). */
     public static final String REGISTRATION_PASSWORD = "qwerty123";
-
-    public static final Duration EXPLICIT_WAIT = Duration.ofSeconds(25);
-
-    /**
-     * Ограничение на загрузку страницы. Браузер запускается со стратегией eager (ждём готовности
-     * DOM, а не всех картинок), поэтому таймаут страхует только от «зависшего» ответа CGI.
-     */
-    public static final Duration PAGE_LOAD_TIMEOUT = Duration.ofSeconds(60);
 
     private ShareLaneConfig() {
     }
