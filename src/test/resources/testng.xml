@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+    Прогон: mvn test
+    Браузер можно переопределить: mvn test -Dbrowser=chrome -Dheadless=true
+-->
+<suite name="ShareLane" verbose="1">
+    <test name="ShareLane: регистрация, авторизация, корзина, оплата">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="headless" value="false"/>
+        <classes>
+            <class name="tests.ShareLaneTests"/>
+        </classes>
+    </test>
+</suite>
