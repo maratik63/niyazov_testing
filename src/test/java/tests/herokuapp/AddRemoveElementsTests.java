@@ -1,8 +1,10 @@
-package tests;
+package tests.herokuapp;
+
+import tests.BaseTest;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.AddRemoveElementsPage;
+import pages.herokuapp.AddRemoveElementsPage;
 
 /**
  * Add/Remove Elements: добавление и удаление элементов, подсчёт кнопок Delete.

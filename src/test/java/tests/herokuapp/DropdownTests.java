@@ -1,8 +1,10 @@
-package tests;
+package tests.herokuapp;
+
+import tests.BaseTest;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.DropdownPage;
+import pages.herokuapp.DropdownPage;
 
 import java.util.List;
 

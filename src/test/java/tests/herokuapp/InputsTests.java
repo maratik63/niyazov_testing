@@ -1,8 +1,10 @@
-package tests;
+package tests.herokuapp;
+
+import tests.BaseTest;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.InputsPage;
+import pages.herokuapp.InputsPage;
 
 /**
  * Inputs: ввод цифровых и нецифровых значений и работа со стрелками вверх/вниз.

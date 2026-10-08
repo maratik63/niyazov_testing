@@ -1,8 +1,10 @@
-package tests;
+package tests.herokuapp;
+
+import tests.BaseTest;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.TyposPage;
+import pages.herokuapp.TyposPage;
 
 /**
  * Typos: проверка орфографии абзацев.

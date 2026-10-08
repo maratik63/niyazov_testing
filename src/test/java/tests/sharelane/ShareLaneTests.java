@@ -1,13 +1,15 @@
-package tests;
+package tests.sharelane;
+
+import tests.BaseTest;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.BalanceViewerPage;
-import pages.CartPage;
-import pages.CheckoutPage;
-import pages.CreditCardGeneratorPage;
-import pages.MainPage;
-import pages.RegisterPage;
+import pages.sharelane.BalanceViewerPage;
+import pages.sharelane.CartPage;
+import pages.sharelane.CheckoutPage;
+import pages.sharelane.CreditCardGeneratorPage;
+import pages.sharelane.MainPage;
+import pages.sharelane.RegisterPage;
 import utils.CreditCard;
 import utils.ShareLaneConfig;
 import utils.TestUser;

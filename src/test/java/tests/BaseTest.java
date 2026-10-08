@@ -132,6 +132,11 @@ public abstract class BaseTest {
                 if (isDirectConnection()) {
                     options.addArguments("--no-proxy-server");
                 }
+                // Облегчаем запуск: без первого запуска, фоновых сервисов и лишних проверок —
+                // браузер стартует быстрее и реже падает при частых перезапусках на каждый тест.
+                options.addArguments("--no-first-run", "--no-default-browser-check", "--disable-extensions",
+                        "--disable-popup-blocking", "--disable-notifications", "--disable-background-networking",
+                        "--disable-sync", "--disable-translate", "--disable-dev-shm-usage");
                 // Chrome показывает модальное окно «пароль найден в утечке» (наши пароли — демо),
                 // пока оно открыто, клики по странице не проходят: отключаем менеджер паролей.
                 options.setExperimentalOption("prefs", passwordManagerPrefs());

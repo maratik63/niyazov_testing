@@ -1,4 +1,6 @@
-package pages;
+package pages.herokuapp;
+
+import pages.BasePage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

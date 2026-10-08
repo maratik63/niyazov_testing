@@ -9,12 +9,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
- * Базовый класс для всех страниц (ShareLane и The Internet).
+ * Базовый класс для всех страниц (ShareLane, The Internet и Swag Labs).
  * <p>
- * Оба сайта — обычные многостраничные приложения: каждый переход открывает новую страницу
+ * Все три сайта — обычные многостраничные приложения: каждый переход открывает новую страницу
  * целиком. Действия выполняются через явные ожидания (неявные не используем), а страница
  * считается загруженной, когда появился один из ожидаемых элементов.
  */
@@ -114,6 +116,14 @@ public class BasePage {
     protected String getText(By locator) {
         waitForVisibility(locator);
         return driver.findElement(locator).getText().trim();
+    }
+
+    /** Тексты всех элементов, найденных по локатору (например, названия или цены товаров). */
+    protected List<String> getAllTexts(By locator) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        return driver.findElements(locator).stream()
+                .map(element -> element.getText().trim())
+                .collect(Collectors.toList());
     }
 
     /** Элемент по индексу с ожиданием его появления (когда локатор подходит нескольким элементам). */

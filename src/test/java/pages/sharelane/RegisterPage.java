@@ -1,4 +1,6 @@
-package pages;
+package pages.sharelane;
+
+import pages.BasePage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

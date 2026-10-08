@@ -1,8 +1,10 @@
-package tests;
+package tests.herokuapp;
+
+import tests.BaseTest;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CheckboxesPage;
+import pages.herokuapp.CheckboxesPage;
 
 /**
  * Checkboxes: состояние чекбоксов по умолчанию и их переключение.
